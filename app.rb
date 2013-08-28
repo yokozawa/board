@@ -5,10 +5,8 @@ require 'addressable/uri'
 require 'active_record'
 require 'pp'
 
-ActiveRecord::Base.establish_connection(
-  "adapter" => "sqlite3",
-  "database" => "./board.db"
-)
+ActiveRecord::Base.configurations = YAML.load_file('database.yml')
+ActiveRecord::Base.establish_connection('development')
 
 class Task < ActiveRecord::Base
 end

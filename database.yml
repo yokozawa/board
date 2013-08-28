@@ -1,0 +1,7 @@
+development:
+  adapter: mysql2
+  database: sinatra
+  host: localhost
+  username: root
+  password: yoko0316
+  encoding: utf8

@@ -1,0 +1,25 @@
+"gcc -o conftest -I/usr/local/rvm/rubies/ruby-1.9.3-p429/include/ruby-1.9.1/x86_64-linux -I/usr/local/rvm/rubies/ruby-1.9.3-p429/include/ruby-1.9.1/ruby/backward -I/usr/local/rvm/rubies/ruby-1.9.3-p429/include/ruby-1.9.1 -I.     -O3 -ggdb -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration  -fPIC conftest.c  -L. -L/usr/local/rvm/rubies/ruby-1.9.3-p429/lib -Wl,-R/usr/local/rvm/rubies/ruby-1.9.3-p429/lib -L.  -rdynamic -Wl,-export-dynamic     -Wl,-R -Wl,/usr/local/rvm/rubies/ruby-1.9.3-p429/lib -L/usr/local/rvm/rubies/ruby-1.9.3-p429/lib -lruby  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+/usr/local/rvm/rubies/ruby-1.9.3-p429/lib/ruby/1.9.1/mkmf.rb:317: warning: Insecure world writable dir /home/yokozawa in PATH, mode 040777
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return 0;
+6: }
+/* end */
+
+"gcc -o conftest -I/usr/local/rvm/rubies/ruby-1.9.3-p429/include/ruby-1.9.1/x86_64-linux -I/usr/local/rvm/rubies/ruby-1.9.3-p429/include/ruby-1.9.1/ruby/backward -I/usr/local/rvm/rubies/ruby-1.9.3-p429/include/ruby-1.9.1 -I.     -O3 -ggdb -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration  -fPIC conftest.c  -L. -L/usr/local/rvm/rubies/ruby-1.9.3-p429/lib -Wl,-R/usr/local/rvm/rubies/ruby-1.9.3-p429/lib -L.  -rdynamic -Wl,-export-dynamic     -Wl,-R -Wl,/usr/local/rvm/rubies/ruby-1.9.3-p429/lib -L/usr/local/rvm/rubies/ruby-1.9.3-p429/lib -lruby  -O3 -ggdb -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration  -fPIC -lpthread -lrt -ldl -lcrypt -lm   -lc"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {
+4:   int i = 1;
+5:   __sync_bool_compare_and_swap(&i, 1, 4);
+6:   return (i != 4);
+7: }
+/* end */
+
+./conftest
