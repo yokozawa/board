@@ -19,8 +19,8 @@ class MyApp < Sinatra::Base
     erb :index
   end
 
-  post '/new' do
-    Task.create({:body => params[:body]})
+  post '/new' do 
+    Task.create({:id => Task.maximum(:id)+1, :body => params[:body]})
     redirect '/'
   end
 
