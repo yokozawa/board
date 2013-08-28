@@ -17,7 +17,7 @@ class MyApp < Sinatra::Base
 
   get '/' do
     @title = 'Top'
-    @tasks = Task.order("id desc").all
+    @tasks = Task.order("sort_order asc").all
     erb :index
   end
 
@@ -43,8 +43,4 @@ class MyApp < Sinatra::Base
 
 end
 
-if __FILE__ == $0
-  require 'rack/handler/webrick'
-  Rack::Handler::WEBrick.run MyApp.new, :Port => 9292
-end
 
