@@ -29,7 +29,7 @@ class MyApp < Sinatra::Base
   end
 
   post '/new' do 
-    Task.create({:id => Task.maximum(:id)+1, :body => params[:body]})
+    Task.create({:body => params[:body]})
     redirect '/'
   end
 
