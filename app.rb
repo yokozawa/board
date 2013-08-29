@@ -11,7 +11,16 @@ ActiveRecord::Base.establish_connection('development')
 class Task < ActiveRecord::Base
 end
 
+
 class MyApp < Sinatra::Base
+
+  configure do
+    enable :logging, :dump_errors
+    set :raise_errors, true
+    file = File.new("#{settings.root}/log/#{settings.environment}.log", 'a+')
+    file.sync = true
+    use Rack::CommonLogger, file
+  end
 
   get '/' do
     @title = 'Top'
