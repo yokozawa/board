@@ -1,4 +1,5 @@
 <div class="container">
+
 <h1>tasks</h1>
 <ul id="sortable-li">
   <% @tasks.each do |task|  %>
@@ -16,34 +17,7 @@
 <input type="text" name="body"><input type="submit" value="submit!">
 </form>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 
-<script src="/js/jquery.ui.touch-punch.min.js"></script>
-
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/ui-lightness/jquery-ui.css">
-
-<link href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.4.5/jqueryui-editable/css/jqueryui-editable.css" rel="stylesheet"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.4.5/jqueryui-editable/js/jqueryui-editable.min.js"></script>
-
-<img src="/images/icon.png">
-
-<style>
-#sortable-li {
-  padding: 0px;
-  list-style-type: none;
-  width: 98%;
-}
-
-#sortable-li li {
-  background: #eee;
-  border-bottom: 1px solid #333;
-  width: 100%;
-  display: block;
-  padding: 5px;
-  cursor: pointer;
-}
-</style>
 
 <script>
 $.fn.editable.defaults.mode = 'inline';

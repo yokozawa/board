@@ -1,0 +1,14 @@
+#sortable-li {
+  padding: 0px;
+  list-style-type: none;
+  width: 98%;
+}
+
+#sortable-li li {
+  background: #eee;
+  border-bottom: 1px solid #333;
+  width: 100%;
+  display: block;
+  padding: 5px;
+  cursor: pointer;
+}
