@@ -17,38 +17,4 @@
 <input type="text" name="body"><input type="submit" value="submit!">
 </form>
 
-
-
-<script>
-$.fn.editable.defaults.mode = 'inline';
-$(document).ready(function() {
-  var el = $(this);
-  $('.ui-state-default').editable({
-  	type: 'text',
-  	pk: el.data('id'),
-  	value: el.data('text'),
-  });
-});
-
-
-$('.deleteCmd').click(function(){
-  var el = $(this).parent();
-  $.post('/delete', {
-    id: el.data('id')
-  }, function() {
-    el.fadeOut(800)
-  });
-  return false;
-})
-
-$(function(){
-  $('#sortable-li').sortable({
-    update: function(event, ui){
-      var ids = $('#sortable-li').sortable('toArray');
-      $.post('/sort',{ids: ids});
-    }
-  });
-});
-</script>
-
 </div>
