@@ -3,7 +3,7 @@
 <ul id="sortable-li">
   <% @tasks.each do |task|  %>
     <li data-id="<%= task.id %>" id="<%= task.id %>" >
-      <a href="#" id="<%= task.id %>" class="ui-state-default" data-name="task" data-type="text" data-pk="<%= task.id %>" data-url="/update" data-title="enter">
+      <a href="#" id="<%= task.id %>" class="ui-state-default" data-name="task" data-type="text" data-pk="<%= task.id %>" data-url="/edit" data-title="enter">
         <%= task.body %>
       </a>
       <span class="deleteCmd" style="cursor:pointer; color:blue">[x]</span>
@@ -71,7 +71,7 @@ $(function(){
   $('#sortable-li').sortable({
     update: function(event, ui){
       var ids = $('#sortable-li').sortable('toArray');
-      $.post('/update',{ids: ids});
+      $.post('/sort',{ids: ids});
     }
   });
 });

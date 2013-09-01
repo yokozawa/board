@@ -37,7 +37,7 @@ class MyApp < Sinatra::Base
     redirect '/'
   end
 
-  post '/update' do
+  post '/sort' do
     @ids = params[:ids]
     i=1
     @ids.each do |id|
@@ -46,6 +46,13 @@ class MyApp < Sinatra::Base
       i+=1
       task.save
     end
+  end
+
+  post '/edit' do
+    id = params[:pk]
+    task = Task.find(id)
+    task.body = params[:value]
+    task.save
   end
 
   post '/delete' do
