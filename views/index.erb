@@ -6,7 +6,7 @@
       <a href="#" id="<%= task.id %>" class="ui-state-default" data-name="task" data-type="text" data-pk="<%= task.id %>" data-url="/edit" data-title="enter">
         <%= task.body %>
       </a>
-      <span class="deleteCmd" style="cursor:pointer; color:blue">[x]</span>
+      <span class="deleteCmd" style="float: right; cursor:pointer; color:blue">[x]</span>
     </li>
   <% end %>
 </ul>
@@ -30,15 +30,15 @@
 
 <style>
 #sortable-li {
-  padding: 0;
+  padding: 0px;
   list-style-type: none;
-  width: 50%;
+  width: 98%;
 }
 
 #sortable-li li {
   background: #eee;
   border-bottom: 1px solid #333;
-  width: 250px;
+  width: 100%;
   display: block;
   padding: 5px;
   cursor: pointer;
