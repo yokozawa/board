@@ -10,17 +10,15 @@ $(document).ready(function() {
 });
 
 // for delete
-$(function(){
-	$('.deleteCmd').click(function(){
-	  var el = $(this).parent();
-	  $.post('/delete', {
-	    id: el.data('id')
-	  }, function() {
-	    el.fadeOut(800)
-	  });
-	  return false;
-	})
-)};
+$('.deleteCmd').click(function(){
+  var el = $(this).parent();
+  $.post('/delete', {
+    id: el.data('id')
+  }, function() {
+    el.fadeOut(800)
+  });
+  return false;
+})
 
 // for sortable
 $(function(){
