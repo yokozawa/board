@@ -22,6 +22,10 @@ class MyApp < Sinatra::Base
     use Rack::CommonLogger, file
   end
 
+  after do
+    ActiveRecord::Base.connection.close
+  end
+
   get '/' do
     @title = 'Top'
     @tasks = Task.order("sort_order asc").all
