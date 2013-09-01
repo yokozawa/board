@@ -3,7 +3,7 @@ Hello, Aptena!!
 <h1>tasks</h1>
 <ul id="sortable-li">
   <% @tasks.each do |task|  %>
-    <li data-id="<%= task.id %>">
+    <li data-id="<%= task.id %>" id="<%= task.id %>" >
       <a href="#" id="<%= task.id %>" class="ui-state-default" data-name="task" data-type="text" data-pk="<%= task.id %>" data-url="/update" data-title="enter">
         <%= task.body %>
       </a>
@@ -19,11 +19,13 @@ Hello, Aptena!!
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-<script src="/js/jquery.ui.touch-punch.min.js"></script>
-<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/ui-lightness/jquery-ui.css">
 
-<link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.4.5/jqueryui-editable/css/jqueryui-editable.css" rel="stylesheet"/>
-<script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.4.5/jqueryui-editable/js/jqueryui-editable.min.js"></script>
+<script src="/js/jquery.ui.touch-punch.min.js"></script>
+
+<link rel="stylesheet" href="httpd://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/ui-lightness/jquery-ui.css">
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.4.5/jqueryui-editable/css/jqueryui-editable.css" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.4.5/jqueryui-editable/js/jqueryui-editable.min.js"></script>
 
 <img src="/images/icon.png">
 
