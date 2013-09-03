@@ -7,4 +7,4 @@ create table tasks (
   delete_flg  bit,
   created_at  datetime,
   updated_at  timestamp
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
