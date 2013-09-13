@@ -25,3 +25,8 @@
   color: blue;
   margin-left: 15px;
 }
+
+#add-form .addCmd {
+  cursor: pointer;
+  color: blue;
+}

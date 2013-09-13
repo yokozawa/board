@@ -3,6 +3,7 @@ require 'sinatra/base'
 require 'sinatra/reloader'
 require 'addressable/uri'
 require 'active_record'
+require 'json'
 require 'pp'
 
 ActiveRecord::Base.configurations = YAML.load_file('database.yml')
@@ -33,8 +34,8 @@ class MyApp < Sinatra::Base
   end
 
   post '/new' do 
-    Task.create({:body => params[:body]})
-    redirect '/'
+    task = Task.create({:body => params[:body]})
+    {:id => task.id, :body => task.body}.to_json
   end
 
   post '/sort' do
