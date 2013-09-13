@@ -26,7 +26,12 @@
   margin-left: 15px;
 }
 
+#add-form .body {
+  float: left;
+  margin-right: 10px;
+}
+
 #add-form .addCmd {
+  margin-top: 5px;
   cursor: pointer;
-  color: blue;
 }

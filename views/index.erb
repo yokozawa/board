@@ -1,22 +1,22 @@
 <div class="container">
 
-<h1>tasks</h1>
+<h2 class="ui-widget-header ui-corner-all">tasks</h2>
 <ul id="sortable-li">
   <% @tasks.each do |task|  %>
     <li data-id="<%= task.id %>" id="<%= task.id %>" >
       <a href="#" id="<%= task.id %>" class="ui-state-default" data-name="task" data-type="text" data-pk="<%= task.id %>" data-url="/edit" data-title="enter">
         <%= task.body %>
       </a>
-      <span class="deleteCmd">[delete]</span>
+      <span class="ui-icon ui-icon-trash deleteCmd"></span>
       <span class="ui-icon ui-icon-arrowthick-2-n-s ui-corner-all ui-state-hover" >&nbsp;</span>
     </li>
   <% end %>
 </ul>
 
-<h2>add new</h2>
+<h2 class="ui-widget-header ui-corner-all">add new</h2>
 <div id="add-form">
-<input type="text" name="body" id="body">
-<span class="addCmd">[add]</span>
+<input type="text" name="body" id="body" class="body">
+<span class="ui-icon ui-icon-circle-plus addCmd">[add]</span>
 </div>
 
 </div>

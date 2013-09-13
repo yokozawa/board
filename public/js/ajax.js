@@ -43,7 +43,7 @@ $(function(){
       $("#sortable-li").prepend(
         $("<li>").attr({'data-id':resobj.id, id:resobj.id}).append(
           $("<a>").attr({href:'#', id:resobj.id, class:'ui-state-default', 'data-pk': resobj.id, 'data-name':'task', 'data-type':'text', 'data-url':'/edit', 'data-title':'enter'}).text(resobj.body)
-          ,$("<span>").attr({class:'deleteCmd'}).text('[delete]')
+          ,$("<span>").attr({class:'ui-icon ui-icon-trash deleteCmd'}).text('')
           ,$('<span>').attr({class:'ui-icon ui-icon-arrowthick-2-n-s ui-corner-all ui-state-hover'}).text(' ')
         )
       );
