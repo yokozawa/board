@@ -25,6 +25,7 @@ $(function(){
 // for sortable
 $(function(){
   $('#sortable-li').sortable({
+    handle: '.ui-icon',
     update: function(event, ui){
       var ids = $('#sortable-li').sortable('toArray');
       $.post('/sort',{ids: ids});

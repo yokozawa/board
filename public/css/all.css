@@ -12,3 +12,16 @@
   padding: 5px;
   cursor: pointer;
 }
+
+#sortable-li .ui-icon {
+  float: right;
+  cursor: move;
+  margin-top: 5px;
+}
+
+#sortable-li .deleteCmd {
+  float: right;
+  cursor: pointer;
+  color: blue;
+  margin-left: 15px;
+}
