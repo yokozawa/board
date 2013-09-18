@@ -4,7 +4,7 @@ create table tasks (
   target_date date,
   sort_order  integer,
   body        text,
-  delete_flg  bit,
+  delete_flg  bit default 0,
   created_at  datetime,
   updated_at  timestamp
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
