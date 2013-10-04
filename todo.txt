@@ -1,4 +1,5 @@
-
+todo
+:when new post renew sort_order numbers
 
 done
 :update where edited texts
