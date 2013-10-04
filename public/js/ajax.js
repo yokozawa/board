@@ -47,6 +47,15 @@ $(function(){
           ,$('<span>').attr({class:'ui-icon ui-icon-arrowthick-2-n-s ui-corner-all ui-state-hover moveCmd'}).text(' ')
         )
       );
+      $('.deleteCmd').click(function(){
+        var el = $(this).parent();
+        $.post('/delete', {
+        id: el.data('id')
+        }, function() {
+          el.fadeOut(800)
+        });
+        return false;
+      });
     });
     $("#body").val("");
     return false;
