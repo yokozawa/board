@@ -35,7 +35,18 @@ $(function(){
 
 // for post
 $(function(){
-  $(".addCmd").click(function(){
+  $('#body').keypress( function(e) {
+    if(e.which == 13) {
+      var text = $(this).val();
+      if(text.length > 0 ) {
+        $('.addCmd').click();
+      }
+    }
+  });
+});
+
+$(function(){
+  $('.addCmd').click(function(){
     $.post('/new', {
       body: $("#body").val()
     }, function(res) {
@@ -50,7 +61,7 @@ $(function(){
       $('.deleteCmd').click(function(){
         var el = $(this).parent();
         $.post('/delete', {
-        id: el.data('id')
+          id: el.data('id')
         }, function() {
           el.fadeOut(800)
         });
