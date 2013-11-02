@@ -34,8 +34,9 @@ class MyApp < Sinatra::Base
   end
 
   post '/new' do 
-    task = Task.create({:body => params[:body]})
-    {:id => task.id, :body => task.body}.to_json
+    max = Task.maximum(:sort_order)
+    task = Task.create({:body => params[:body], :sort_order => max})
+    {:id => task.id, :body => task.body, :sort_order => task.sort_order}.to_json
   end
 
   post '/sort' do
