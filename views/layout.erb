@@ -11,8 +11,10 @@
 <!-- for touch device -->
 <script src="/js/jquery.ui.touch-punch.min.js"></script>
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
-<link media="only screen and (max-device-width:480px)" href="/css/iphone.css" type="text/css" rel="stylesheet" />
-<link media="only screen and (max-device-width:481px)" href="/css/pc.css" type="text/css" rel="stylesheet" />
+<!--
+<link media="only screen and (max-device-width:480px)" href="/css/pc.css" type="text/css" rel="stylesheet" />
+<link media="only screen and (max-device-width:481px)" href="/css/iphone.css" type="text/css" rel="stylesheet" />
+-->
 
 <!-- for jquery sortable -->
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.css">
@@ -21,8 +23,23 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.4.5/jqueryui-editable/css/jqueryui-editable.css" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.4.5/jqueryui-editable/js/jqueryui-editable.min.js"></script>
 
+<!-- read app resources -->
 <link rel="stylesheet" href="/css/all.css">
 <script type="text/javascript" src="/js/ajax.js"></script>
+
+<!-- read css by device types -->
+<script>
+(function(){
+    var _UA = navigator.userAgent;
+    if (_UA.indexOf('iPhone') > -1 || _UA.indexOf('iPod') > -1) {
+        document.write('<link rel="stylesheet" href="/css/iphone.css">');
+    }else if(_UA.indexOf('Android') > -1){
+        document.write('<link rel="stylesheet" href="/css/android.css">');
+    }else{
+        document.write('<link rel="stylesheet" href="/css/pc.css">');
+    }
+})();
+</script>
 
 <title>Board <%= @title %></title>
 </head>
