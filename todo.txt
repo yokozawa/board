@@ -1,5 +1,7 @@
 todo
-
+:fix css pc,sp
+:add user id and access by user id
+:add another board and access by board id
 
 done
 :update where edited texts

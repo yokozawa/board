@@ -1,11 +1,11 @@
 .ui-icon {
-  zoom: 120%;
+  zoom: 180%;
 }
 
 #sortable-li {
   padding: 0px;
   list-style-type: none;
-  width: 98%;
+  width: 60%;
 }
 
 #sortable-li li {
