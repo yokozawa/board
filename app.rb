@@ -12,6 +12,9 @@ ActiveRecord::Base.establish_connection('development')
 class Task < ActiveRecord::Base
 end
 
+class UserToBoard < ActiveRecord::Base
+end
+
 
 class MyApp < Sinatra::Base
 
@@ -29,13 +32,18 @@ class MyApp < Sinatra::Base
 
   get '/' do
     @title = 'Top'
-    @tasks = Task.order("sort_order asc").all
+    board_id = params[:board_id];
+    board_id = 1 if !board_id;
+    @tasks = Task.where(:board_id => board_id).order("sort_order asc").all
+    @board_id = board_id;
+
+    @u2bs = UserToBoard.where(:user_id => 1).order("board_id asc").all;
     erb :index
   end
 
   post '/new' do 
     max = Task.maximum(:sort_order) + 1
-    task = Task.create({:body => params[:body], :sort_order => max})
+    task = Task.create({:body => params[:body], :board_id => params[:board_id], :sort_order => max})
     {:id => task.id, :body => task.body, :sort_order => task.sort_order}.to_json
   end
 

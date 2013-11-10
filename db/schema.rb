@@ -10,18 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130829073442) do
+ActiveRecord::Schema.define(version: 20131110082747) do
 
   create_table "tasks", force: true do |t|
+    t.integer   "board_id"
     t.date      "target_date"
     t.integer   "sort_order"
     t.text      "body"
-    t.binary    "delete_flg",  limit: 1
+    t.binary    "delete_flg",  limit: 1, default: "b'0'"
     t.datetime  "created_at"
-    t.timestamp "updated_at",            null: false
+    t.timestamp "updated_at",                             null: false
   end
 
   create_table "user_to_board", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "board_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "user_to_boards", force: true do |t|
     t.integer  "user_id"
     t.integer  "board_id"
     t.datetime "created_at"

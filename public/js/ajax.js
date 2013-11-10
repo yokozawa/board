@@ -48,7 +48,8 @@ $(function(){
 $(function(){
   $('.addCmd').click(function(){
     $.post('/new', {
-      body: $("#body").val()
+      body: $("#body").val(),
+      board_id: $("#board_id").val()
     }, function(res) {
       resobj = JSON.parse(res);
       $("#sortable-li").prepend(
