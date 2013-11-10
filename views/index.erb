@@ -1,10 +1,21 @@
 <div class="container">
 
+<script type="text/javascript">
+$(function() {
+  $('#ui-tab > ul').tabs();
+});
+</script>
 <h2 class="ui-widget-header ui-corner-all">tasks</h2>
-<% @u2bs.each do |u2b| %>
-  <a href="/?board_id=<%= u2b.board_id %>">board:<%= u2b.board_id %></a>
-<% end %>
+<div id="tabs">
+  <ul>
+    <% @u2bs.each do |u2b| %>
+      <a href="/?board_id=<%= u2b.board_id %>">board:<%= u2b.board_id %></a>
+      <!-- <li><a href="#fragment-1">board:<%= u2b.board_id %></a></li> -->
+    <% end %>
+  </ul>
+</div>
 
+<div id="fragment-1">
 <ul id="sortable-li">
   <% @tasks.each do |task|  %>
     <li data-id="<%= task.id %>" id="<%= task.id %>" >
@@ -23,6 +34,7 @@
 <span class="ui-icon ui-icon-circle-plus addCmd">[add]</span>
 </div>
 
-<input type="text" name="board_id" id="board_id" value="<%= @board_id %>" >
+<input type="hidden" name="board_id" id="board_id" value="<%= @board_id %>" >
+</div>
 
 </div>
