@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'sinatra/base'
 require 'sinatra/reloader'
-require 'addressable/uri'
+#require 'addressable/uri'
 require 'active_record'
 require 'json'
 require 'pp'
@@ -19,6 +19,7 @@ end
 class MyApp < Sinatra::Base
 
   configure do
+    register Sinatra::Reloader
     enable :logging, :dump_errors
     set :raise_errors, true
     file = File.new("#{settings.root}/log/#{settings.environment}.log", 'a+')
