@@ -70,7 +70,7 @@ class MyApp < Sinatra::Base
     if @graph == nil
       redirect '/request_token'
     end
-    @user_name = session[:user_name]
+    @me = @graph.get_object('me')
     @title = 'Top'
     board_id = params[:board_id]
     board_id = 1 if !board_id
