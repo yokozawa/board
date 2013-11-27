@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131110082747) do
+ActiveRecord::Schema.define(version: 20131118121344) do
+
+  create_table "boards", force: true do |t|
+    t.string   "title"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "delete_flg"
+  end
 
   create_table "tasks", force: true do |t|
     t.integer   "board_id"
@@ -22,18 +30,20 @@ ActiveRecord::Schema.define(version: 20131110082747) do
     t.timestamp "updated_at",                             null: false
   end
 
-  create_table "user_to_board", force: true do |t|
+  create_table "user_to_boards", force: true do |t|
     t.integer  "user_id"
     t.integer  "board_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "user_to_boards", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "board_id"
+  create_table "users", force: true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "password_hash"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "delete_flg"
   end
 
 end

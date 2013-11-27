@@ -9,3 +9,8 @@ gem 'sinatra-activerecord', :require => 'sinatra/activerecord'
 gem "activerecord"
 gem "rake"
 gem "rerun"
+gem "omniauth"
+gem 'omniauth-facebook', '1.4.0'
+gem "omniauth-twitter"
+gem "logger"
+gem "koala"

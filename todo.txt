@@ -1,8 +1,11 @@
 todo
+:user signup/login
+:fix budle file path
+:renew github
 :fix css pc,sp
-:add user id and access by user id
-:add another board and access by board id
 
 done
+:add another board and access by board id
+:add user id and access by user id
 :update where edited texts
 :when new post renew sort_order numbers

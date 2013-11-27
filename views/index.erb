@@ -5,11 +5,14 @@ $(function() {
   $('#ui-tab > ul').tabs();
 });
 </script>
+
+welcome, <%= @user_name %>
+
 <h2 class="ui-widget-header ui-corner-all">tasks</h2>
 <div id="tabs">
   <ul>
     <% @u2bs.each do |u2b| %>
-      <a href="/?board_id=<%= u2b.board_id %>">board:<%= u2b.board_id %></a>
+      <a href="/?board_id=<%= u2b.board_id %>">board:<%= u2b.board.title %></a>
       <!-- <li><a href="#fragment-1">board:<%= u2b.board_id %></a></li> -->
     <% end %>
   </ul>

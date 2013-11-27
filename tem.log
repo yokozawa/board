@@ -1,0 +1,5 @@
+==  UserToBoards: reverting ===================================================
+-- drop_table(:user_to_boards)
+   -> 0.0117s
+==  UserToBoards: reverted (0.0119s) ==========================================
+

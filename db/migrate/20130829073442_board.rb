@@ -9,5 +9,6 @@ class Board < ActiveRecord::Migration
   end
 
   def down
+    drop_table :user_to_board
   end
 end

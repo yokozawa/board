@@ -9,6 +9,6 @@ class UserToBoards < ActiveRecord::Migration
   end
 
   def down
-    drop_table :user_to_board
+    drop_table :user_to_boards
   end
 end
