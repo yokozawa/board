@@ -80,6 +80,19 @@ class MyApp < Sinatra::Base
     erb :index
   end
 
+  get 'sign_up' do
+    session[:user_id] ||= nil
+    if session[:user_id]
+      redirect '/log_out'
+    end
+  end
+
+  get '/log_out' do
+    unless session[:user_id]
+      redirect 'log_in'
+    end
+  end
+
   get '/request_token' do
     callback_url = "#{base_url}/access_token"
     Koala::Facebook::OAuth.new(ENV['APP_ID'], ['APP_SECRET'], callback_url)
