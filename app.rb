@@ -85,6 +85,7 @@ class MyApp < Sinatra::Base
     if session[:user_id]
       redirect '/log_out'
     end
+    erb :sign_up
   end
 
   get '/log_out' do
