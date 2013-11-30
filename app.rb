@@ -80,7 +80,7 @@ class MyApp < Sinatra::Base
     erb :index
   end
 
-  get 'sign_up' do
+  get '/sign_up' do
     session[:user_id] ||= nil
     if session[:user_id]
       redirect '/log_out'
