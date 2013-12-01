@@ -93,7 +93,7 @@ class MyApp < Sinatra::Base
       redirect 'sign_up'
     end
 
-    user = User.new(name: params[:name], email: params[:email], params[:password])
+    user = User.new(name: params[:name], email: params[:email], password: params[:password])
     if user
       session[:user_id] = user._id
       redirect '/'
