@@ -88,6 +88,20 @@ class MyApp < Sinatra::Base
     erb :sign_up
   end
 
+  post 'sign_up' do
+    if params[:password] != params[:confirm_password]
+      redirect 'sign_up'
+    end
+
+    user = User.new(name: params[:name], email: params[:email], params[:password])
+    if user
+      session[:user_id] = user._id
+      redirect '/'
+    else
+      redirect 'log_in'
+    end
+  end
+
   get '/log_out' do
     unless session[:user_id]
       redirect 'log_in'
