@@ -68,7 +68,7 @@ class MyApp < Sinatra::Base
 
   get '/' do
     if @graph == nil
-      redirect '/sign_up'
+      redirect '/request_token'
     end
     @me = @graph.get_object('me')
     @title = 'Top'
@@ -93,7 +93,7 @@ class MyApp < Sinatra::Base
       redirect 'sign_up'
     end
 
-    user = User.new(name: params[:name], email: params[:email], params[:password])
+#    user = User.new(name: params[:name], email: params[:email], params[:password])
     if user
       session[:user_id] = user._id
       redirect '/'
