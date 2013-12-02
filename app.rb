@@ -72,7 +72,6 @@ class MyApp < Sinatra::Base
 #      redirect '/sign_up'
 #    end
     @me = @graph.get_object('me')
-    pp @me
     @title = 'Top'
     board_id = params[:board_id]
     board_id = 1 if !board_id
