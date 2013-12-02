@@ -122,12 +122,12 @@ class MyApp < Sinatra::Base
 pp @me
 #      user = User.new(name: params[:name], email: params[:email], password: params[:password], uid:@me['id'])
 
-      if user
-        session[:user_id] = user._id
-        redirect '/'
-      else
-        redirect 'log_in'
-      end
+#      if user
+#        session[:user_id] = user._id
+#        redirect '/'
+#      else
+#        redirect 'log_in'
+#      end
     end
   end
 
