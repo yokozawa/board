@@ -92,7 +92,7 @@ class MyApp < Sinatra::Base
 
   post 'sign_up' do
     if params[:password] != params[:confirm_password]
-      redirect 'sign_up'
+#      redirect 'sign_up'
     end
 
     user = User.new(name: params[:name], email: params[:email], password: params[:password])
