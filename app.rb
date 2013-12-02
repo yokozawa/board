@@ -67,7 +67,8 @@ class MyApp < Sinatra::Base
   end
 
   get '/' do
-    if  session[:user_id] == nil
+#    if  session[:user_id] == nil
+    if @graph == nil
       redirect '/sign_up'
     end
     @me = @graph.get_object('me')
