@@ -124,7 +124,7 @@ pp @me
 
 #      if user
 #        session[:user_id] = user._id
-#        redirect '/'
+        redirect '/'
 #      else
 #        redirect 'log_in'
 #      end
