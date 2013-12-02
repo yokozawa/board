@@ -125,7 +125,7 @@ class MyApp < Sinatra::Base
       @me = @graph.get_object('me')
 
       session[:facebook_access_token] = oauth_consumer.get_access_token(params[:code], :redirect_uri => callback_url)
-      user = User.new(name: params[:name], email: params[:email], password: params[:password] uif:@me['id'])
+      user = User.new(name: params[:name], email: params[:email], password: params[:password], uid:@me['id'])
       if user
         session[:user_id] = user._id
         redirect '/'
