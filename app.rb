@@ -67,8 +67,8 @@ class MyApp < Sinatra::Base
   end
 
   get '/' do
-    if @graph == nil
-      redirect '/request_token'
+    if  session[:user_id] == nil
+      redirect '/sign_up'
     end
     @me = @graph.get_object('me')
     pp @me
@@ -118,8 +118,20 @@ class MyApp < Sinatra::Base
   get '/access_token' do
     if params[:code]
       callback_url = "#{base_url}/access_token"
+
+      if @graph == nil
+        redirect '/sign_up'
+      end
+      @me = @graph.get_object('me')
+
       session[:facebook_access_token] = oauth_consumer.get_access_token(params[:code], :redirect_uri => callback_url)
-      redirect '/'
+      user = User.new(name: params[:name], email: params[:email], password: params[:password] uif:@me['id'])
+      if user
+        session[:user_id] = user._id
+        redirect '/'
+      else
+        redirect 'log_in'
+      end
     end
   end
 
