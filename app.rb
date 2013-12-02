@@ -119,7 +119,8 @@ class MyApp < Sinatra::Base
       callback_url = "#{base_url}/access_token"
 
       session[:facebook_access_token] = oauth_consumer.get_access_token(params[:code], :redirect_uri => callback_url)
-      user = User.new(name: params[:name], email: params[:email], password: params[:password], uid:@me['id'])
+pp @me
+#      user = User.new(name: params[:name], email: params[:email], password: params[:password], uid:@me['id'])
 
       if user
         session[:user_id] = user._id
