@@ -67,10 +67,11 @@ class MyApp < Sinatra::Base
   end
 
   get '/' do
-    if @graph == nil
-      redirect '/request_token'
+    if  session[:user_id] == nil
+      redirect '/sign_up'
     end
     @me = @graph.get_object('me')
+    pp @me
     @title = 'Top'
     board_id = params[:board_id]
     board_id = 1 if !board_id
@@ -78,6 +79,34 @@ class MyApp < Sinatra::Base
     @board_id = board_id
     @u2bs = UserToBoard.where(:user_id => 1).order("board_id asc").all
     erb :index
+  end
+
+  get '/sign_up' do
+    session[:user_id] ||= nil
+    if session[:user_id]
+      redirect '/log_out'
+    end
+    erb :sign_up
+  end
+
+  post 'sign_up' do
+    if params[:password] != params[:confirm_password]
+      redirect 'sign_up'
+    end
+
+    user = User.new(name: params[:name], email: params[:email], password: params[:password])
+    if user
+      session[:user_id] = user._id
+      redirect '/'
+    else
+      redirect 'log_in'
+    end
+  end
+
+  get '/log_out' do
+    unless session[:user_id]
+      redirect 'log_in'
+    end
   end
 
   get '/request_token' do
@@ -89,8 +118,20 @@ class MyApp < Sinatra::Base
   get '/access_token' do
     if params[:code]
       callback_url = "#{base_url}/access_token"
+
+      if @graph == nil
+        redirect '/sign_up'
+      end
+      @me = @graph.get_object('me')
+
       session[:facebook_access_token] = oauth_consumer.get_access_token(params[:code], :redirect_uri => callback_url)
-      redirect '/'
+      user = User.new(name: params[:name], email: params[:email], password: params[:password], uid:@me['id'])
+      if user
+        session[:user_id] = user._id
+        redirect '/'
+      else
+        redirect 'log_in'
+      end
     end
   end
 
