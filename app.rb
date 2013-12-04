@@ -119,18 +119,22 @@ class MyApp < Sinatra::Base
       callback_url = "#{base_url}/access_token"
 
       session[:facebook_access_token] = oauth_consumer.get_access_token(params[:code], :redirect_uri => callback_url)
-      @me = @graph.get_object('me')
-pp @me
-      user = User.create(name: params[:name], email: params[:email], password: params[:password], uid:@me['id'])
 
 #      if user
 #        session[:user_id] = user._id
-        redirect '/'
+        redirect '/callback'
 #      else
 #        redirect 'log_in'
 #      end
     end
   end
+
+  get '/callback' do
+    @me = @graph.get_object('me')
+    pp @me
+    user = User.create(name: params[:name], email: params[:email], password: params[:password], uid:@me['id'])
+  end
+
 
   post '/new' do 
     max = Task.maximum(:sort_order) + 1
