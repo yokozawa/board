@@ -122,7 +122,7 @@ class MyApp < Sinatra::Base
 
 #      if user
 #        session[:user_id] = user._id
-        redirect '/callback'
+        redirect 'callback'
 #      else
 #        redirect 'log_in'
 #      end
