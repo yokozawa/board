@@ -136,7 +136,7 @@ user = User.where(:uid => @me["id"])
       user = User.create({name: @me["name"], email: params[:email], password_hash: params[:password], uid: @me["id"]})
     end
     pp user
-#    session[:user_id] = user.id
+    session[:user_id] = user["id"]
     redirect '/'
   end
 
