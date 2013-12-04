@@ -132,7 +132,12 @@ class MyApp < Sinatra::Base
   get '/callback' do
     @me = @graph.get_object('me')
     pp @me["id"]
-    user = User.create({name: params[:name], email: params[:email], password_hash: params[:password], uid: @me["id"]})
+    user = User.where(:uid => @me["id"])
+    if user == nil
+      user = User.create({name: @me["name"], email: params[:email], password_hash: params[:password], uid: @me["id"]})
+    end
+    session[:user_id] = user._id
+    redirect '/'
   end
 
 
