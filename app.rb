@@ -132,7 +132,7 @@ class MyApp < Sinatra::Base
   get '/callback' do
     @me = @graph.get_object('me')
     pp @me
-    user = User.create(name: params[:name], email: params[:email], password: params[:password], uid:@me['id'])
+#    user = User.create(name: params[:name], email: params[:email], password: params[:password], uid:@me['id'])
   end
 
 
