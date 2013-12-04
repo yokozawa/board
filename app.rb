@@ -136,7 +136,7 @@ class MyApp < Sinatra::Base
     if user == nil
       user = User.create({name: @me["name"], email: params[:email], password_hash: params[:password], uid: @me["id"]})
     end
-    session[:user_id] = user._id
+    session[:user_id] = user.id
     redirect '/'
   end
 
