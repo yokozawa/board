@@ -121,6 +121,7 @@ class MyApp < Sinatra::Base
   end
 
   get '/log_out' do
+    session[:user_id] = nil
     unless session[:user_id]
       redirect 'log_in'
     end
