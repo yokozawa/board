@@ -95,7 +95,7 @@ class MyApp < Sinatra::Base
 
 #    user = User.new(name: params[:name], email: params[:email], params[:password])
     if user
-      session[:user_id] = user._id
+      session[:user_id] = user.id
       redirect '/'
     else
       redirect 'log_in'
@@ -106,6 +106,10 @@ class MyApp < Sinatra::Base
     unless session[:user_id]
       redirect 'log_in'
     end
+  end
+
+  get '/log_in' do
+
   end
 
   get '/request_token' do
