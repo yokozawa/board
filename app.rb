@@ -127,8 +127,10 @@ class MyApp < Sinatra::Base
     end
 
     user = User.authenticate(params[:email], params[:password])
+    pp user
     if user
      session[:user_id] = user.id
+pp session
      redirect '/'
     else
      redirect "/log_in"
