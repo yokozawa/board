@@ -109,7 +109,7 @@ class MyApp < Sinatra::Base
   end
 
   get '/log_in' do
-
+    erb :log_in
   end
 
   get '/request_token' do
