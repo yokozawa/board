@@ -28,6 +28,15 @@ class User < ActiveRecord::Base
   has_many:user_to_boards
   has_many:boards, :through => :user_to_boards
 #  attr_accessible:board_ids
+
+  def self.authenticate(email, password)
+    user = self.where(email: email).first
+    if user && user.password_hash == password
+      user
+    else
+      nil 
+    end 
+  end
 end
 
 class MyApp < Sinatra::Base
@@ -111,6 +120,21 @@ class MyApp < Sinatra::Base
   get '/log_in' do
     erb :log_in
   end
+
+  post '/log_in' do
+    if session[:user_id]
+      redirect "/"
+    end
+
+    user = User.authenticate(params[:email], params[:password])
+    if user
+     session[:user_id] = user._id
+     redirect '/'
+    else
+     redirect "/log_in"
+    end
+  end
+
 
   get '/request_token' do
     callback_url = "#{base_url}/access_token"
