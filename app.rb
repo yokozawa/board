@@ -32,16 +32,17 @@ class User < ActiveRecord::Base
 
   def self.authenticate(email, password)
     user = self.where(email: email).first
-    if user && user.password_hash == BCrypt::Engine.hash_secret(password, salt)
+    if user && user.password_hash == BCrypt::Engine.hash_secret(password, user.password_salt)
       user
     else
       nil 
     end 
   end
 
-  def encrypt_password(password)
+  def self.encrypt_password(password)
     if password.present?
-      self.password_hash = BCrypt::Engine.hash_secret(password, salt)
+      self.password_salt = BCrypt::Engine.generate_salt
+      self.password_hash = BCrypt::Engine.hash_secret(password, self.password_salt)
     end 
   end 
 end
@@ -53,7 +54,6 @@ class MyApp < Sinatra::Base
   configure do
     ENV['APP_ID'] = "590797490990322"
     ENV['APP_SECRET'] = "c312a380c87089ab9aa85319ad0eb1dc"
-    salt = 'ggewagijb4o#!&)G#ug9h31gG'
     set :sessions, true
     enable :sessions, :logging, :dump_errors
     register Sinatra::Reloader
@@ -111,8 +111,7 @@ class MyApp < Sinatra::Base
     end
 
     user = User.create({name: params[:name], email: params[:email],
-              password_hash: user.encrypt_password(params[:password])})
-
+              password_hash: User.encrypt_password(params[:password])})
     if user
       session[:user_id] = user.id
       redirect '/'
