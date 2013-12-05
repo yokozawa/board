@@ -5,6 +5,7 @@ require 'active_record'
 require 'json'
 require 'pp'
 require 'koala'
+require 'bcrypt'
 
 ActiveRecord::Base.configurations = YAML.load_file('database.yml')
 ActiveRecord::Base.establish_connection('development')
@@ -31,15 +32,18 @@ class User < ActiveRecord::Base
 
   def self.authenticate(email, password)
     user = self.where(email: email).first
-pp user.password_hash
-pp password
-    if user && user.password_hash == password
-pp user.name
+    if user && user.password_hash == BCrypt::Engine.hash_secret(password, salt)
       user
     else
       nil 
     end 
   end
+
+  def encrypt_password(password)
+    if password.present?
+      self.password_hash = BCrypt::Engine.hash_secret(password, salt)
+    end 
+  end 
 end
 
 class MyApp < Sinatra::Base
@@ -49,6 +53,7 @@ class MyApp < Sinatra::Base
   configure do
     ENV['APP_ID'] = "590797490990322"
     ENV['APP_SECRET'] = "c312a380c87089ab9aa85319ad0eb1dc"
+    salt = 'ggewagijb4o#!&)G#ug9h31gG'
     set :sessions, true
     enable :sessions, :logging, :dump_errors
     register Sinatra::Reloader
@@ -105,12 +110,14 @@ class MyApp < Sinatra::Base
       redirect 'sign_up'
     end
 
-#    user = User.new(name: params[:name], email: params[:email], params[:password])
+    user = User.create({name: params[:name], email: params[:email],
+              password_hash: user.encrypt_password(params[:password]})
+
     if user
       session[:user_id] = user.id
       redirect '/'
     else
-      redirect 'log_in'
+      redirect 'sign_up'
     end
   end
 
