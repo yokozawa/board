@@ -31,7 +31,9 @@ class User < ActiveRecord::Base
 
   def self.authenticate(email, password)
     user = self.where(email: email).first
+pp user
     if user && user.password_hash == password
+pp user.name
       user
     else
       nil 
@@ -127,10 +129,8 @@ class MyApp < Sinatra::Base
     end
 
     user = User.authenticate(params[:email], params[:password])
-    pp user
     if user
      session[:user_id] = user.id
-pp session
      redirect '/'
     else
      redirect "/log_in"
