@@ -14,3 +14,4 @@ gem 'omniauth-facebook', '1.4.0'
 gem "omniauth-twitter"
 gem "logger"
 gem "koala"
+gem "bcrypt-ruby"
