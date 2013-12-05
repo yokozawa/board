@@ -31,7 +31,8 @@ class User < ActiveRecord::Base
 
   def self.authenticate(email, password)
     user = self.where(email: email).first
-pp user
+pp user.password_hash
+pp password
     if user && user.password_hash == password
 pp user.name
       user
