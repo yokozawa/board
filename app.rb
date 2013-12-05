@@ -38,13 +38,6 @@ class User < ActiveRecord::Base
       nil 
     end 
   end
-
-  def self.encrypt_password(password)
-    if password.present?
-      password_salt = BCrypt::Engine.generate_salt
-      self.password_hash = BCrypt::Engine.hash_secret(password, password_salt)
-    end 
-  end 
 end
 
 class MyApp < Sinatra::Base
@@ -110,8 +103,15 @@ class MyApp < Sinatra::Base
       redirect 'sign_up'
     end
 
+    if params[:password].present?
+      password_salt = BCrypt::Engine.generate_salt
+      password_hash = BCrypt::Engine.hash_secret(params[:password], password_salt)
+    else
+      redirect 'sign_up'
+    end 
+
     user = User.create({name: params[:name], email: params[:email],
-              password_hash: User.encrypt_password(params[:password])})
+              password_hash: password_hash, password_salt: password_salt)})
     if user
       session[:user_id] = user.id
       redirect '/'
