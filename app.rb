@@ -67,10 +67,10 @@ class MyApp < Sinatra::Base
   end
 
   get '/' do
-    if @graph == nil
-      redirect '/request_token'
+    if session[:user_id] == nil
+      redirect 'sign_up'
     end
-    @me = @graph.get_object('me')
+    @user = User.find(session[:user_id])
     @title = 'Top'
     board_id = params[:board_id]
     board_id = 1 if !board_id
@@ -88,7 +88,7 @@ class MyApp < Sinatra::Base
     erb :sign_up
   end
 
-  post 'sign_up' do
+  post '/sign_up' do
     if params[:password] != params[:confirm_password]
       redirect 'sign_up'
     end
@@ -119,13 +119,7 @@ class MyApp < Sinatra::Base
       callback_url = "#{base_url}/access_token"
 
       session[:facebook_access_token] = oauth_consumer.get_access_token(params[:code], :redirect_uri => callback_url)
-
-#      if user
-#        session[:user_id] = user._id
-        redirect 'callback'
-#      else
-#        redirect 'log_in'
-#      end
+      redirect 'callback'
     end
   end
 
@@ -139,7 +133,6 @@ class MyApp < Sinatra::Base
     session[:user_id] = user.id
     redirect '/'
   end
-
 
   post '/new' do 
     max = Task.maximum(:sort_order) + 1
