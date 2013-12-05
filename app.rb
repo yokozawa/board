@@ -5,6 +5,7 @@ require 'active_record'
 require 'json'
 require 'pp'
 require 'koala'
+require 'bcrypt'
 
 ActiveRecord::Base.configurations = YAML.load_file('database.yml')
 ActiveRecord::Base.establish_connection('development')
@@ -28,6 +29,21 @@ class User < ActiveRecord::Base
   has_many:user_to_boards
   has_many:boards, :through => :user_to_boards
 #  attr_accessible:board_ids
+
+  def self.authenticate(email, password)
+    user = self.where(email: email).first
+    if user && user.password_hash == BCrypt::Engine.hash_secret(password, salt)
+      user
+    else
+      nil 
+    end 
+  end
+
+  def encrypt_password(password)
+    if password.present?
+      self.password_hash = BCrypt::Engine.hash_secret(password, salt)
+    end 
+  end 
 end
 
 class MyApp < Sinatra::Base
@@ -37,6 +53,7 @@ class MyApp < Sinatra::Base
   configure do
     ENV['APP_ID'] = "590797490990322"
     ENV['APP_SECRET'] = "c312a380c87089ab9aa85319ad0eb1dc"
+    salt = 'ggewagijb4o#!&)G#ug9h31gG'
     set :sessions, true
     enable :sessions, :logging, :dump_errors
     register Sinatra::Reloader
@@ -67,11 +84,10 @@ class MyApp < Sinatra::Base
   end
 
   get '/' do
-#    if  session[:user_id] == nil
-#    if @graph == nil
-#      redirect '/sign_up'
-#    end
-    @me = @graph.get_object('me')
+    if session[:user_id] == nil
+      redirect 'sign_up'
+    end
+    @user = User.find(session[:user_id])
     @title = 'Top'
     board_id = params[:board_id]
     board_id = 1 if !board_id
@@ -89,17 +105,19 @@ class MyApp < Sinatra::Base
     erb :sign_up
   end
 
-  post 'sign_up' do
+  post '/sign_up' do
     if params[:password] != params[:confirm_password]
-#      redirect 'sign_up'
+      redirect 'sign_up'
     end
 
-    user = User.new(name: params[:name], email: params[:email], params[:password])
+    user = User.create({name: params[:name], email: params[:email],
+              password_hash: user.encrypt_password(params[:password])})
+
     if user
-      session[:user_id] = user._id
+      session[:user_id] = user.id
       redirect '/'
     else
-      redirect 'log_in'
+      redirect 'sign_up'
     end
   end
 
@@ -108,6 +126,25 @@ class MyApp < Sinatra::Base
       redirect 'log_in'
     end
   end
+
+  get '/log_in' do
+    erb :log_in
+  end
+
+  post '/log_in' do
+    if session[:user_id]
+      redirect "/"
+    end
+
+    user = User.authenticate(params[:email], params[:password])
+    if user
+     session[:user_id] = user.id
+     redirect '/'
+    else
+     redirect "/log_in"
+    end
+  end
+
 
   get '/request_token' do
     callback_url = "#{base_url}/access_token"
@@ -120,15 +157,19 @@ class MyApp < Sinatra::Base
       callback_url = "#{base_url}/access_token"
 
       session[:facebook_access_token] = oauth_consumer.get_access_token(params[:code], :redirect_uri => callback_url)
-      user = User.new(name: params[:name], email: params[:email], password: params[:password], uid:@me['id'])
-
-      if user
-        session[:user_id] = user._id
-        redirect '/'
-      else
-        redirect 'log_in'
-      end
+      redirect 'callback'
     end
+  end
+
+  get '/callback' do
+    @me = @graph.get_object('me')
+    user = User.where(:uid => @me["id"]).first
+    if user == nil
+      user = User.create({name: @me["name"], email: params[:email], password_hash: params[:password], uid: @me["id"]})
+    end
+    pp user.id
+    session[:user_id] = user.id
+    redirect '/'
   end
 
   post '/new' do 
