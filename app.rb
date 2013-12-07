@@ -30,6 +30,8 @@ class User < ActiveRecord::Base
   has_many:boards, :through => :user_to_boards
 #  attr_accessible:board_ids
 
+  salt = 'gerwg2$#H$"HRHAherwiahr$'
+
   def self.authenticate(email, password)
     user = self.where(email: email).first
     sha1_password = Digest::SHA1.hexdigest("#{salt}#{self.password_hash}")
