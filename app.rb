@@ -34,8 +34,8 @@ class User < ActiveRecord::Base
   def self.authenticate(email, password)
   salt = 'gerwg2$#H$"HRHAherwiahr$'
     user = self.where(email: email).first
-    sha1_password = Digest::SHA1.hexdigest("#{salt}#{self.password_hash}")
-    if BCrypt::Password.new(self.password_digest) == sha1_password
+    sha1_password = Digest::SHA1.hexdigest("#{salt}#{user.password_hash}")
+    if BCrypt::Password.new(user.password_hash) == sha1_password
       user
     else
       nil
