@@ -30,9 +30,9 @@ class User < ActiveRecord::Base
   has_many:boards, :through => :user_to_boards
 #  attr_accessible:board_ids
 
-  salt = 'gerwg2$#H$"HRHAherwiahr$'
 
   def self.authenticate(email, password)
+  salt = 'gerwg2$#H$"HRHAherwiahr$'
     user = self.where(email: email).first
     sha1_password = Digest::SHA1.hexdigest("#{salt}#{self.password_hash}")
     if BCrypt::Password.new(self.password_digest) == sha1_password
@@ -48,6 +48,7 @@ class User < ActiveRecord::Base
   end
 
   def self.encrypt_password(password)
+  salt = 'gerwg2$#H$"HRHAherwiahr$'
     if password.present?
       sha1_password = Digest::SHA1.hexdigest("#{salt}#{password}")
       password_digest = BCrypt::Password.create(sha1_password).to_s
