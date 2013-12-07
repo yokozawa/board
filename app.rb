@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
     end 
   end
 
-  def encrypt_password(password)
+  def self.encrypt_password(password)
     self.encrypted_password = BCrypt::Password.create(password) if password.present?
   end
 end
