@@ -116,7 +116,7 @@ class MyApp < Sinatra::Base
     # end 
 
     user = User.create({name: params[:name], email: params[:email],
-              password_hash: User.encrypt_password(password_hash), password_salt: password_salt})
+              password_hash: User.encrypt_password(params[:password])})
 
     if user
       session[:user_id] = user.id
