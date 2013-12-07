@@ -35,11 +35,12 @@ class User < ActiveRecord::Base
     pp password
     user = self.where(email: email).first
 #    if user && user.password_hash == BCrypt::Engine.hash_secret(password, user.password_salt)
-    if user && user.password_hash == BCrypt::Password.new(password)
-      user
-    else
-      nil 
-    end 
+user
+    # if user && user.password_hash == BCrypt::Password.new(password)
+    #   user
+    # else
+    #   nil 
+    # end 
   end
 
   def self.encrypt_password(password)
