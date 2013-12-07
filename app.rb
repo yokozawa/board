@@ -31,6 +31,8 @@ class User < ActiveRecord::Base
 #  attr_accessible:board_ids
 
   def self.authenticate(email, password)
+    pp email
+    pp password
     user = self.where(email: email).first
 #    if user && user.password_hash == BCrypt::Engine.hash_secret(password, user.password_salt)
     if user && user.password_hash == BCrypt::Password.new(password)
