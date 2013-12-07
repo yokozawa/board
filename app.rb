@@ -31,11 +31,13 @@ class User < ActiveRecord::Base
 #  attr_accessible:board_ids
 
   def self.authenticate(email, password)
-    pp email
-    pp password
     user = self.where(email: email).first
-#    if user && user.password_hash == BCrypt::Engine.hash_secret(password, user.password_salt)
-user
+    sha1_password = Digest::SHA1.hexdigest("#{salt}#{self.password_hash}")
+    if BCrypt::Password.new(self.password_digest) == sha1_password
+      user
+    else
+      nil
+    end
     # if user && user.password_hash == BCrypt::Password.new(password)
     #   user
     # else
@@ -44,7 +46,10 @@ user
   end
 
   def self.encrypt_password(password)
-    encrypted_password = BCrypt::Password.create(password) if password.present?
+    if password.present?
+      sha1_password = Digest::SHA1.hexdigest("#{salt}#{password}")
+      password_digest = BCrypt::Password.create(sha1_password).to_s
+    end
   end
 end
 
@@ -111,13 +116,6 @@ class MyApp < Sinatra::Base
       redirect 'sign_up'
     end
 
-    # if params[:password].present?
-    #   password_salt = BCrypt::Engine.generate_salt
-    #   password_hash = BCrypt::Engine.hash_secret(params[:password], password_salt)
-    # else
-    #   redirect 'sign_up'
-    # end 
-
     user = User.create({name: params[:name], email: params[:email],
               password_hash: User.encrypt_password(params[:password])})
 
@@ -144,8 +142,9 @@ class MyApp < Sinatra::Base
     if session[:user_id]
       redirect "/"
     end
-pp params
+
     user = User.authenticate(params[:email], params[:password])
+
     if user
      session[:user_id] = user.id
      redirect '/'
