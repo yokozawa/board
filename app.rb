@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
   def self.authenticate(email, password)
     user = self.where(email: email).first
 #    if user && user.password_hash == BCrypt::Engine.hash_secret(password, user.password_salt)
-    if user && user.password_hash == BCrypt::Password.new(password)
+    if user && user.password_hash == BCrypt::Password.create(password)
       user
     else
       nil 
