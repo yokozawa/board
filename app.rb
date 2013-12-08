@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
     sha1_password = Digest::SHA1.hexdigest("#{salt}#{password}")
     pp sha1_password
     pp user.password_hash
-    if BCrypt::Password.new(user.password_hash) == sha1_password
+    if BCrypt::Password.new(sha1_password) == user.password_hash
       user
     else
       nil
