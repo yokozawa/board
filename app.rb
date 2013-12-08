@@ -35,6 +35,8 @@ class User < ActiveRecord::Base
   salt = 'gerwg2$#H$"HRHAherwiahr$'
     user = self.where(email: email).first
     sha1_password = Digest::SHA1.hexdigest("#{salt}#{user.password_hash}")
+    pp sha1_password
+    pp user.password_hash
     if BCrypt::Password.new(user.password_hash) == sha1_password
       user
     else
