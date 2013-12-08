@@ -5,7 +5,7 @@ require 'active_record'
 require 'json'
 require 'pp'
 require 'koala'
-require 'bcrypt'
+require 'openssl'
 
 ActiveRecord::Base.configurations = YAML.load_file('database.yml')
 ActiveRecord::Base.establish_connection('development')
