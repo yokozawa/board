@@ -5,7 +5,7 @@ require 'active_record'
 require 'json'
 require 'pp'
 require 'koala'
-require 'openssl'
+require 'digest/md5'
 
 ActiveRecord::Base.configurations = YAML.load_file('database.yml')
 ActiveRecord::Base.establish_connection('development')
@@ -32,26 +32,18 @@ class User < ActiveRecord::Base
 
 
   def self.authenticate(email, password)
-  salt = 'gerwg2$#H$"HRHAherwiahr$'
     user = self.where(email: email).first
-#    sha1_password = Digest::SHA1.hexdigest("#{salt}#{password}")
-#    pp BCrypt::Password.create(sha1_password).to_s
-    pp BCrypt::Password.new(password)
-    pp user.password_hash
-    nil
-    # if BCrypt::Password.new(sha1_password) == user.password_hash
-    #   user
-    # else
-    #   nil
-    # end
+    if self.encrypt_password(password) == user.password_hash
+      return user
+    else
+      return nil
+    end
   end
 
   def self.encrypt_password(password)
-  salt = 'gerwg2$#H$"HRHAherwiahr$'
+    salt = 'gerwg2$#H$"HRHAherwiahr$'
     if password.present?
-      BCrypt::Password.create(password)
-#      sha1_password = Digest::SHA1.hexdigest("#{salt}#{password}")
-#      password_digest = BCrypt::Password.create(sha1_password).to_s
+      return MD5.hexdigest(password + salt)
     end
   end
 end
