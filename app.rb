@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
   def self.encrypt_password(password)
     salt = 'gerwg2$#H$"HRHAherwiahr$'
     if password.present?
-      return MD5.hexdigest(password + salt)
+      return Digest::MD5.hexdigest(password + salt)
     end
   end
 end
