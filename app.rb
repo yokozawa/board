@@ -89,9 +89,6 @@ class MyApp < Sinatra::Base
 
   get '/' do
 
-( Dir::glob("app/models/*.rb") ).each do |model|
-  require model
-end
 
 
     if session[:user_id] == nil
@@ -116,6 +113,11 @@ end
   end
 
   post '/sign_up' do
+( Dir::glob("app/models/*.rb") ).each do |model|
+  require model
+end
+
+    
     if params[:password] != params[:confirm_password]
       redirect 'sign_up'
     end
