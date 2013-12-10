@@ -26,6 +26,7 @@ class Board < ActiveRecord::Base
 end
 
 ( Dir::glob("app/models/*.rb") ).each do |model|
+  pp model
   require model
 end
 
