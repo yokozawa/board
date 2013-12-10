@@ -10,20 +10,20 @@ require 'digest/md5'
 ActiveRecord::Base.configurations = YAML.load_file('database.yml')
 ActiveRecord::Base.establish_connection('development')
 
-class Task < ActiveRecord::Base
-end
+# class Task < ActiveRecord::Base
+# end
 
-class UserToBoard < ActiveRecord::Base
-  belongs_to:board
-  belongs_to:user
-end
+# class UserToBoard < ActiveRecord::Base
+#   belongs_to:board
+#   belongs_to:user
+# end
 
-class Board < ActiveRecord::Base
-  has_many:tasks
-  has_many:user_to_boards
-  has_many:users, :through => :user_to_boards
-#  attr_accessible:user_ids
-end
+# class Board < ActiveRecord::Base
+#   has_many:tasks
+#   has_many:user_to_boards
+#   has_many:users, :through => :user_to_boards
+# #  attr_accessible:user_ids
+# end
 
 ( Dir.glob("app/model/*.rb") ).each do |model|
   pp "./"+model
