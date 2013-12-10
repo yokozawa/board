@@ -114,10 +114,11 @@ class MyApp < Sinatra::Base
 
   post '/sign_up' do
 ( Dir::glob("app/models/*.rb") ).each do |model|
+  pp model
   require model
 end
 
-    
+
     if params[:password] != params[:confirm_password]
       redirect 'sign_up'
     end
