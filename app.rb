@@ -26,7 +26,6 @@ class Board < ActiveRecord::Base
 end
 
 ( Dir::glob("app/models/*.rb") ).each do |model|
-  pp model
   require model
 end
 
@@ -89,6 +88,12 @@ class MyApp < Sinatra::Base
   end
 
   get '/' do
+
+( Dir::glob("app/models/*.rb") ).each do |model|
+  require model
+end
+
+
     if session[:user_id] == nil
       redirect 'sign_up'
     end
