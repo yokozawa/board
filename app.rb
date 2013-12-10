@@ -25,7 +25,7 @@ class Board < ActiveRecord::Base
 #  attr_accessible:user_ids
 end
 
-( Dir::glob("app/model/*.rb") ).each do |model|
+( Dir.glob("app/model/*.rb") ).each do |model|
   pp model
 #  require model
 end
