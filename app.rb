@@ -105,6 +105,11 @@ class MyApp < Sinatra::Base
   end
 
   get '/sign_up' do
+( Dir::glob("app/models/*.rb") ).each do |model|
+  pp model
+  require model
+end
+
     session[:user_id] ||= nil
     if session[:user_id]
       redirect '/log_out'
@@ -113,12 +118,6 @@ class MyApp < Sinatra::Base
   end
 
   post '/sign_up' do
-( Dir::glob("app/models/*.rb") ).each do |model|
-  pp model
-  require model
-end
-
-
     if params[:password] != params[:confirm_password]
       redirect 'sign_up'
     end
