@@ -26,8 +26,8 @@ class Board < ActiveRecord::Base
 end
 
 ( Dir.glob("app/model/*.rb") ).each do |model|
-  pp model
-  require model
+  pp "./"+model
+  require "./"+model
 end
 
 # class User < ActiveRecord::Base
