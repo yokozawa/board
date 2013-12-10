@@ -27,7 +27,7 @@ end
 
 ( Dir.glob("app/model/*.rb") ).each do |model|
   pp "./"+model
-#  require "./"+model
+  require "./"+model
 end
 
 # class User < ActiveRecord::Base
