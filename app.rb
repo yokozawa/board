@@ -105,10 +105,11 @@ class MyApp < Sinatra::Base
   end
 
   get '/sign_up' do
-( Dir::glob("app/models/*.rb") ).each do |model|
+( Dir.glob("app/models/*.rb") ).each do |model|
   pp model
   require model
 end
+
 
     session[:user_id] ||= nil
     if session[:user_id]
