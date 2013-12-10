@@ -107,7 +107,7 @@ class MyApp < Sinatra::Base
   get '/sign_up' do
 ( Dir.glob("*") ).each do |model|
   pp model
-  require model
+#  require model
 end
 
 
