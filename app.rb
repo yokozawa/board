@@ -25,14 +25,11 @@ end
 
 class MyApp < Sinatra::Base
 
-
-
   use Rack::Session::Cookie, :expire_after => 60*60*3, :secret => 'xxxx'
-use Auth
+  use Auth
 
   configure do
-set :views, File.dirname(__FILE__) + '/views'
-pp views
+    set :views, File.dirname(__FILE__) + '/views'
     ENV['APP_ID'] = "590797490990322"
     ENV['APP_SECRET'] = "c312a380c87089ab9aa85319ad0eb1dc"
     set :sessions, true
@@ -99,32 +96,6 @@ pp views
       redirect '/'
     else
       redirect 'sign_up'
-    end
-  end
-
-  get '/log_out' do
-    session[:user_id] = nil
-    unless session[:user_id]
-      redirect 'log_in'
-    end
-  end
-
-  get '/log_in' do
-    erb :log_in
-  end
-
-  post '/log_in' do
-    if session[:user_id]
-      redirect "/"
-    end
-
-    user = User.authenticate(params[:email], params[:password])
-
-    if user
-     session[:user_id] = user.id
-     redirect '/'
-    else
-     redirect "/log_in"
     end
   end
 
