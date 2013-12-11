@@ -1,6 +1,11 @@
 
 class Auth < Sinatra::Base
 
+  configure do
+set :views, File.dirname(__FILE__) + '/templates'
+pp views
+  end
+
   get '/log_out' do
     session[:user_id] = nil
     unless session[:user_id]
