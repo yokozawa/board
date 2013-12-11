@@ -17,7 +17,7 @@ end
 
 # read controller
 ( Dir.glob("app/controller/*.rb") ).each do |controller|
-  require "./"+controller
+  load "./"+controller
 end
 
 class MyApp < Sinatra::Base
