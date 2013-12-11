@@ -15,7 +15,6 @@ ActiveRecord::Base.establish_connection('development')
   require "./"+model
 end
 
-set :views, File.dirname(__FILE__) + '/views'
 
 # read controller
 ( Dir.glob("app/controller/*.rb") ).each do |controller|
@@ -25,6 +24,9 @@ end
 
 
 class MyApp < Sinatra::Base
+
+set :views, File.dirname(__FILE__) + '/views'
+
 
   use Rack::Session::Cookie, :expire_after => 60*60*3, :secret => 'xxxx'
 use Auth
