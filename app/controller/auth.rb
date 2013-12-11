@@ -1,7 +1,6 @@
 
 class Auth < Sinatra::Base
 
-set :views, Proc.new { File.join(root, "views") }
   get '/log_out' do
     session[:user_id] = nil
     unless session[:user_id]
