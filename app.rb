@@ -21,6 +21,8 @@ end
   require "./"+controller
 end
 
+set :views, File.dirname(__FILE__) + '/views'
+
 class MyApp < Sinatra::Base
 
   use Rack::Session::Cookie, :expire_after => 60*60*3, :secret => 'xxxx'
