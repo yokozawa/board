@@ -2,7 +2,7 @@
 class Auth < Sinatra::Base
 
   configure do
-#set :views, File.dirname(__FILE__) + '/views'
+set :views, File.dirname(__FILE__) + '../views'
 pp views
   end
 
