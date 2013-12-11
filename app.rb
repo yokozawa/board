@@ -25,13 +25,14 @@ end
 
 class MyApp < Sinatra::Base
 
-set :views, File.dirname(__FILE__) + '/views'
 
 
   use Rack::Session::Cookie, :expire_after => 60*60*3, :secret => 'xxxx'
 use Auth
 
   configure do
+
+set :views, Proc.new { File.join(root, "views") }
     ENV['APP_ID'] = "590797490990322"
     ENV['APP_SECRET'] = "c312a380c87089ab9aa85319ad0eb1dc"
     set :sessions, true
