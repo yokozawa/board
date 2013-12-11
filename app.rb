@@ -31,8 +31,8 @@ class MyApp < Sinatra::Base
 use Auth
 
   configure do
-set :root, File.dirname(__FILE__)
-set :views, Proc.new { File.join(root, "views") }
+set :views, File.dirname(__FILE__) + '/templates'
+pp views
     ENV['APP_ID'] = "590797490990322"
     ENV['APP_SECRET'] = "c312a380c87089ab9aa85319ad0eb1dc"
     set :sessions, true
