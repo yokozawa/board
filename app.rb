@@ -17,7 +17,8 @@ end
 
 # read controller
 ( Dir.glob("app/controller/*.rb") ).each do |controller|
-  load "./"+controller
+  pp controller
+  load controller
 end
 
 class MyApp < Sinatra::Base
