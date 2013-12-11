@@ -12,14 +12,12 @@ ActiveRecord::Base.establish_connection('development')
 
 # read model
 ( Dir.glob("app/model/*.rb") ).each do |model|
-  pp "./"+model
   require "./"+model
 end
 
 # read controller
 ( Dir.glob("app/controller/*.rb") ).each do |controller|
-  pp controller
-  require controller
+  require "./"+controller
 end
 
 class MyApp < Sinatra::Base
