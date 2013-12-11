@@ -10,9 +10,16 @@ require 'digest/md5'
 ActiveRecord::Base.configurations = YAML.load_file('database.yml')
 ActiveRecord::Base.establish_connection('development')
 
+# read model
 ( Dir.glob("app/model/*.rb") ).each do |model|
   pp "./"+model
   require "./"+model
+end
+
+# read controller
+( Dir.glob("app/controller/*.rb") ).each do |controller|
+  pp controller
+  require controller
 end
 
 class MyApp < Sinatra::Base
@@ -52,9 +59,6 @@ class MyApp < Sinatra::Base
   end
 
   get '/' do
-
-
-
     if session[:user_id] == nil
       redirect 'sign_up'
     end
@@ -91,33 +95,6 @@ class MyApp < Sinatra::Base
       redirect 'sign_up'
     end
   end
-
-  get '/log_out' do
-    session[:user_id] = nil
-    unless session[:user_id]
-      redirect 'log_in'
-    end
-  end
-
-  get '/log_in' do
-    erb :log_in
-  end
-
-  post '/log_in' do
-    if session[:user_id]
-      redirect "/"
-    end
-
-    user = User.authenticate(params[:email], params[:password])
-
-    if user
-     session[:user_id] = user.id
-     redirect '/'
-    else
-     redirect "/log_in"
-    end
-  end
-
 
   get '/request_token' do
     callback_url = "#{base_url}/access_token"
