@@ -15,6 +15,8 @@ ActiveRecord::Base.establish_connection('development')
   require "./"+model
 end
 
+set :views, File.dirname(__FILE__) + '/views'
+
 # read controller
 ( Dir.glob("app/controller/*.rb") ).each do |controller|
   pp controller
@@ -37,7 +39,6 @@ use Auth
     file = File.new("#{settings.root}/log/#{settings.environment}.log", 'a+')
     file.sync = true
     use Rack::CommonLogger, file
-set :views, File.dirname(__FILE__) + '/views'
   end
 
   def base_url
