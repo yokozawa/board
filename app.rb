@@ -21,7 +21,6 @@ end
   require "./"+controller
 end
 
-set :views, File.dirname(__FILE__) + '/views'
 
 class MyApp < Sinatra::Base
 
@@ -38,6 +37,7 @@ use Auth
     file = File.new("#{settings.root}/log/#{settings.environment}.log", 'a+')
     file.sync = true
     use Rack::CommonLogger, file
+set :views, File.dirname(__FILE__) + '/views'
   end
 
   def base_url
