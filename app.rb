@@ -28,7 +28,7 @@ class MyApp < Sinatra::Base
 
 
   use Rack::Session::Cookie, :expire_after => 60*60*3, :secret => 'xxxx'
-use Auth
+#use Auth
 
   configure do
 set :views, File.dirname(__FILE__) + '/templates'
