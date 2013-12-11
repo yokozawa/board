@@ -24,6 +24,7 @@ end
 class MyApp < Sinatra::Base
 
   use Rack::Session::Cookie, :expire_after => 60*60*3, :secret => 'xxxx'
+use Auth
 
   configure do
     ENV['APP_ID'] = "590797490990322"
